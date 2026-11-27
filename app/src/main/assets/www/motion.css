@@ -1,0 +1,104 @@
+/* =====================================================================
+   Khenambay · animasi (dipasang oleh motion.js)
+   ===================================================================== */
+:root { --ease-out: cubic-bezier(.16,1,.3,1); }
+
+/* ---------- riak saat ditekan ---------- */
+/* overflow: clip (bukan hidden) supaya kartu di daftar yang bisa di-scroll tidak menyusut saat ditekan:
+   overflow: hidden membuat tinggi minimum item flex jadi 0, sehingga kartu sempat gepeng jadi garis tipis. */
+.rp-host { position: relative; overflow: hidden; overflow: clip; isolation: isolate; }
+.opp, .item, .kpi { flex-shrink: 0; }
+.ripple { position: absolute; border-radius: 50%; pointer-events: none; background: currentColor; opacity: .22; transform: scale(0); animation: ripple .6s var(--ease-out) forwards; z-index: 0; }
+@keyframes ripple { to { transform: scale(1); opacity: 0; } }
+
+/* ---------- tekan: membal ---------- */
+.btn, .chip, .icon-btn, .l-cta, .l-pill, .sector, .seg button, .levels button, .item, .mini-opp, .topnav a, .side a { transition: transform .22s var(--spring), background .2s, box-shadow .2s, color .2s, border-color .2s; }
+.btn:active, .chip:active, .icon-btn:active, .l-cta:active, .l-pill:active, .sector:active, .seg button:active, .levels button:active, .mini-opp:active, .topnav a:active { transform: scale(.95); }
+.item:active, .opp:active { transform: scale(.985); }
+.dock .dk:active .dk-ic { transform: scale(.82); }
+.dock .dk-ic { transition: transform .3s var(--spring); }
+.dock .dk[aria-current="page"] .dk-ic { animation: dock-hop .5s var(--spring); }
+@keyframes dock-hop { 0% { transform: translateY(0) scale(1); } 40% { transform: translateY(-6px) scale(1.18); } 100% { transform: translateY(-1px) scale(1.08); } }
+.dock .dk[aria-current="page"] { animation: dock-glow .45s var(--ease-out); }
+@keyframes dock-glow { from { box-shadow: 0 0 0 0 rgba(242,182,53,.6); } to { box-shadow: var(--clay-hi), 0 6px 16px -6px rgba(242,182,53,.7); } }
+.dock .dk-fab .dk-ic { animation: fab-breathe 3s ease-in-out infinite; }
+@keyframes fab-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08) rotate(90deg); } }
+
+/* ---------- pilihan yang baru diketuk ---------- */
+.just-sel { animation: sel-pop .45s var(--spring); }
+@keyframes sel-pop { 0% { transform: scale(.86); } 55% { transform: scale(1.08); } 100% { transform: scale(1); } }
+.sector[aria-pressed="true"].just-sel svg, .chip.sx.just-sel .sx-ic { animation: icon-wiggle .5s var(--spring); }
+@keyframes icon-wiggle { 0% { transform: rotate(0); } 30% { transform: rotate(-14deg) scale(1.15); } 60% { transform: rotate(10deg); } 100% { transform: none; } }
+.burst { position: fixed; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%; background: var(--sun); pointer-events: none; z-index: 90; animation: burst .55s var(--ease-out) forwards; }
+.burst:nth-child(odd) { background: var(--ember); }
+@keyframes burst { to { transform: translate(var(--dx), var(--dy)) scale(.2); opacity: 0; } }
+
+/* centang, saklar */
+.check input { transition: transform .2s var(--spring); } .check input:checked { animation: sel-pop .4s var(--spring); }
+.toggle span, .toggle span::after { transition: all .3s var(--spring); }
+
+/* ---------- pindah halaman ---------- */
+#app.enter > * { animation: page-in .5s var(--ease-out) both; }
+@keyframes page-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+#app.enter :is(.stack, .bento, .kpis, .opp-grid, .opp-list, .l-feat, .kdocs, .sec-list, .photos, .sx-chips) > * { animation: rise .55s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 45ms + 80ms); }
+@keyframes rise { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: none; } }
+#app.enter .ph-goal .ring { animation: ring-fill 1.1s var(--ease-out) both; }
+@property --p { syntax: '<number>'; inherits: true; initial-value: 0; }
+@keyframes ring-fill { from { --p: 0; } }
+#app.enter .track i, #app.enter .meter i { animation: bar-grow .9s var(--ease-out) both; transform-origin: left; }
+@keyframes bar-grow { from { transform: scaleX(0); } }
+#app.enter .bt-go { animation: pop-in .6s var(--spring) .3s both, bump 2.4s var(--spring) 1s infinite; }
+#app.enter .table tbody tr { animation: rise .45s var(--ease-out) both; }
+#app.enter .table tbody tr:nth-child(2) { animation-delay: .05s; } #app.enter .table tbody tr:nth-child(3) { animation-delay: .1s; }
+#app.enter .table tbody tr:nth-child(4) { animation-delay: .15s; } #app.enter .table tbody tr:nth-child(n+5) { animation-delay: .2s; }
+
+/* kartu hidup saat diarahkan kursor */
+@media (hover: hover) {
+  .opp:hover { transform: translateY(-3px); box-shadow: 0 9px 0 rgba(0,0,0,.35), var(--glass-hi); }
+  .item:hover { transform: translateX(3px); }
+  .opp:hover .ic, .opp:hover svg:first-child { animation: icon-wiggle .5s var(--spring); }
+}
+
+/* ---------- toast & panel ---------- */
+.toast { animation: toast-in .45s var(--spring) both; }
+.toast.out { animation: toast-out .25s ease-in forwards; }
+@keyframes toast-in { from { opacity: 0; transform: translateY(-14px) scale(.92); } to { opacity: 1; transform: none; } }
+@keyframes toast-out { to { opacity: 0; transform: translateY(-10px) scale(.96); } }
+.cenra-panel, .sheet { animation: sheet-up .45s var(--spring); }
+@keyframes sheet-up { from { transform: translateY(40px); opacity: .4; } to { transform: none; opacity: 1; } }
+.desk .cenra-panel { transform-origin: bottom right; animation: panel-pop .4s var(--spring); }
+.desk .sheet { animation: none; }
+@keyframes panel-pop { from { transform: scale(.85) translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+.msg { animation: rise .35s var(--ease-out) both; }
+.cenra-fab .ring { transition: transform .3s var(--spring); } .cenra-fab:hover .ring { transform: scale(1.08) rotate(-6deg); }
+.cenra-fab .online { animation: online-pulse 2s ease-out infinite; }
+@keyframes online-pulse { 0% { box-shadow: 0 0 0 0 rgba(181,208,99,.7); } 100% { box-shadow: 0 0 0 9px rgba(181,208,99,0); } }
+
+/* ---------- peta: pin jatuh ---------- */
+.rm-pin, .rm-bubble { animation: pin-drop .5s var(--spring) both; }
+@keyframes pin-drop { from { transform: translateY(-18px) scale(.5); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* ---------- halaman awal ---------- */
+.l-giant { animation: giant-in 1.2s var(--ease-out) both; will-change: transform; }
+@keyframes giant-in { from { opacity: 0; transform: translateY(40px); letter-spacing: .12em; } to { opacity: 1; transform: none; } }
+.l-card { animation: rise .7s var(--ease-out) both; }
+.l-cards .l-card:nth-child(2) { animation-delay: .08s; } .l-cards .l-card:nth-child(3) { animation-delay: .16s; }
+.l-cards .l-card:nth-child(4) { animation-delay: .24s; } .l-cards .l-card:nth-child(5) { animation-delay: .32s; }
+.l-cenra img { animation: cenra-in .9s var(--spring) .3s both, bob 3.2s ease-in-out 1.2s infinite; }
+@keyframes cenra-in { from { opacity: 0; transform: translateY(40px) rotate(-12deg) scale(.7); } to { opacity: 1; transform: none; } }
+.reveal { opacity: 0; transform: translateY(34px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); transition-delay: calc(var(--ri, 0) * 70ms); }
+.reveal.in { opacity: 1; transform: none; }
+.l-path.reveal.in:nth-child(1) { transform: rotate(-1.2deg); } .l-path.reveal.in:nth-child(3) { transform: rotate(1.2deg); }
+.l-path.reveal.in:hover { transform: translateY(-6px) rotate(0); }
+.l-time::before { transform-origin: top; animation: line-grow 1.4s var(--ease-out) both; }
+@keyframes line-grow { from { transform: translateX(-1px) scaleY(0); } }
+
+/* ---------- foto bercap: muncul ---------- */
+.photos .photo img { animation: photo-in .5s var(--spring) both; }
+@keyframes photo-in { from { opacity: 0; transform: scale(.8) rotate(-4deg); } to { opacity: 1; transform: none; } }
+
+/* ---------- hormati "kurangi gerakan" ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .reveal { opacity: 1; transform: none; }
+}

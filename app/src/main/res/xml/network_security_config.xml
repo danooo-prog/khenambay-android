@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aplikasi berdiri sendiri: tampilan dibuka dari dalam APK lewat https (WebViewAssetLoader),
+     peta dan nama tempat lewat https. Lalu lintas http biasa tidak diizinkan. -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+</network-security-config>
