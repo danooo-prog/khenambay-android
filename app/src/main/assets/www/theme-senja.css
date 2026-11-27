@@ -495,7 +495,12 @@ button.item:hover, a.item:hover, .kpi:hover, .opp:hover { border-color: var(--li
 /* halaman masuk/daftar: pemandangan senja Sentani di belakang panel */
 .st-scene { position: relative; isolation: isolate; overflow: hidden; }
 .st-scene > svg.bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -2; stroke: none; }
-.st-scene::before { content: ''; position: fixed; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(15,20,8,.82), rgba(15,20,8,.45) 55%, rgba(15,20,8,.7)); }
+.st-scene > img.bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -2; object-fit: cover; object-position: 50% 45%; }
+/* foto udara Danau Sentani di semua halaman masuk/daftar: digelapkan supaya formulir dan teks terbaca */
+.st-scene::before { content: ''; position: fixed; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, rgba(15,20,8,.78) 0%, rgba(15,20,8,.5) 45%, rgba(15,20,8,.55) 70%, rgba(15,20,8,.72) 100%),
+              linear-gradient(180deg, rgba(15,20,8,.35), transparent 40%, rgba(15,20,8,.6)); }
+@media (max-width: 899px) { .st-scene::before { background: linear-gradient(180deg, rgba(15,20,8,.55), rgba(15,20,8,.62) 40%, rgba(15,20,8,.85)); } }
 .start .card { background: rgba(20,26,11,.62); border-color: rgba(246,244,241,.28); }
 .start .btn.ghost { color: var(--cream); }
 .l-hero .l-intro { text-shadow: 0 1px 2px rgba(0,0,0,.55), 0 0 18px rgba(15,20,8,.6); }

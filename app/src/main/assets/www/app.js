@@ -953,7 +953,7 @@ const ROLE_INFO = {
 const nextOf = (def) => new URLSearchParams(location.hash.split('?')[1] || '').get('next') || def;
 function authShell(inner, side = true) {
   // Di komputer: panel kiri berisi pesan untuk investor, form di kanan. Di HP: form saja.
-  return `<div class="start st-scene${side ? '' : ' no-side'}">${endScene()}<aside class="auth-side" aria-hidden="true"><p class="auth-kicker">Khenambay untuk investor</p>
+  return `<div class="start st-scene${side ? '' : ' no-side'}"><img class="bg" src="img/foto/sentani-tengah.jpg" alt="" decoding="async"><aside class="auth-side" aria-hidden="true"><p class="auth-kicker">Khenambay untuk investor</p>
     <h2>Satu data,<br>sejuta peluang<br>investasi.</h2><p>Peluang di 19 distrik Kabupaten Jayapura, sudah diverifikasi DPMPTSP dan lengkap dengan status lahan adat.</p>
     <ul><li>${ic('map')} Peta satelit semua peluang</li><li>${ic('star')} Tingkat kesiapan level 1–5</li><li>${ic('shield')} Data diri terenkripsi</li></ul>
     <img src="${CENRA_IMG.menyapa}" alt=""></aside><div class="start-in">

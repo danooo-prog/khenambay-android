@@ -11,8 +11,19 @@ android {
         applicationId = "id.khenambay.app"
         minSdk = 24
         targetSdk = 35
-        versionCode = 3
-        versionName = "2.0"
+        versionCode = 4
+        versionName = "2.1"
+    }
+
+    // Kunci tanda tangan tetap (ikut di repo) supaya APK baru dari GitHub bisa dipasang menimpa versi lama
+    // tanpa harus menghapus aplikasi dulu. Hanya untuk prototipe lomba; untuk Play Store pakai kunci rilis rahasia.
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("khenambay-debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
     }
 
     buildTypes {
